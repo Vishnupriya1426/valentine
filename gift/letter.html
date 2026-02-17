@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter — Love Beyond Gravity</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .card {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid rgba(255,105,180,0.35);
+            border-radius: 18px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(138,43,226,0.2);
+        }
+
+        .paragraph {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #ffffff;
+            font-weight: 400;
+            white-space: pre-wrap;
+        }
+
+        .back {
+            margin-top: 28px;
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 20px;
+            background: linear-gradient(135deg,#ff1493,#ff69b4);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="paragraph">ela start cheyyalo kuda ardamkavatledhu,manam eppudu ilantivi resukoledh kabatti....<br><br>eppatiki manam ilaney untam ,undali kuda ....asal eppudu anukoledhu nenu ila intha love lo unta ani enni rojulu matladukokapoina next 7 years tarvata ochina ilaney untam manam .i was so lucky to have you ...nuv eppudu nannu deni nunchi aapaledhu evaritho matladina ,ekkadiki vellina,em chesina ... naku telisi 5 years emo manam matladukoda start chesi inni rojullo okasari kuda ee relation loki enduku ochanu ani anipichaledhu,in every moment you prooved that oka best decision teesukunnav ani ...at the starting days i didnt tought that manam inni days untam ani ... nuvvu andari la hours and hours matladakpoina, wishes cheyyakpoina,tirigi ivvanni manaki asal matter eh kadhanuko em chesina cheyyakapoina ,nuv elanti situation lo unna i am always there for you iyna ivanni endhuku cheptunnano telsu kada manaki... endhukooo rasthuntey kanillu ochestunnai navvu kuda 😂 oyammma endhendho cheppestunna sarle  nuvvu nannu odhalav nenu odhalnu anthey em aina <br>Losing you? Not happening.
+Leaving me? No chance.<br> Emo po nenu inka cheppalenu navvu osthundhi naku😂
+</div>
+        <a class="back" href="stickers.html">← Back</a>
+    </div>
+
+    <!-- Audio for Background Music -->
+    <audio id="backgroundMusic" loop>
+        <source src="lovesong.mpeg" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Player -->
+    <div style="position: fixed; bottom: 30px; right: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 2px solid rgba(255,105,180,0.5); border-radius: 15px; padding: 15px 20px; z-index: 1000; display: flex; align-items: center; gap: 10px;">
+        <button id="musicToggle" onclick="toggleMusic()" style="background: linear-gradient(135deg, #ff1493, #ff69b4); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease;">🎵</button>
+        <span style="color: #ff69b4; font-size: 0.9rem; white-space: nowrap;">Love Song</span>
+    </div>
+
+    <script>
+        // Music toggle with localStorage persistence
+        function toggleMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            const btn = document.getElementById('musicToggle');
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Audio play failed'));
+                localStorage.setItem('musicPlaying', 'true');
+                btn.textContent = '🎵';
+            } else {
+                audio.pause();
+                localStorage.setItem('musicPlaying', 'false');
+                btn.textContent = '🔇';
+            }
+        }
+
+        // Initialize page with music state
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('backgroundMusic');
+            if (!audio) return;
+            const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+            if (isMusicPlaying) {
+                audio.play().catch(() => {});
+                document.getElementById('musicToggle').textContent = '🎵';
+            }
+        });
+    </script>
+</body>
+</html>

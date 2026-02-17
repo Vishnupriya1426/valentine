@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Stickers - Love Beyond Gravity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #0a0a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Galaxy Background */
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a0033 0%, #0a0a1a 50%, #000 100%);
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Floating Hearts */
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: float-up 8s infinite ease-in;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.8));
+        }
+
+        .heart.heart-2 {
+            animation-duration: 10s;
+            opacity: 0.4;
+        }
+
+        .heart.heart-3 {
+            animation-duration: 12s;
+            opacity: 0.5;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #ff69b4;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #e0e0ff;
+            font-weight: 300;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stickers Grid */
+        .stickers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .sticker-card {
+            background: rgba(255, 255, 255, 0.08);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+            transition: all 0.3s ease;
+            animation: slideIn 1s ease-out forwards;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .sticker-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .sticker-card:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sticker-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(255, 20, 147, 0.6);
+            border-color: rgba(255, 105, 180, 1);
+        }
+
+        .sticker-emoji {
+            font-size: 120px;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.6));
+        }
+
+        .sticker-emoji.kiss {
+            animation: kiss-animation 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes kiss-animation {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            50% {
+                transform: scale(1) rotate(0deg);
+            }
+            75% {
+                transform: scale(1.1) rotate(-5deg);
+            }
+        }
+
+        .sticker-title {
+            font-size: 1.8rem;
+            color: #ff69b4;
+            margin: 20px 0;
+            font-weight: 300;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+
+        .sticker-description {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .sticker-btn {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: #000000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .sticker-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(255, 20, 147, 1);
+        }
+
+        .sticker-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Message Button */
+        .btn-message {
+            background: linear-gradient(135deg, #8a2be2, #ff69b4);
+            color: #ffffff;
+            border: 2px solid rgba(138, 43, 226, 0.8);
+            padding: 18px 50px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+            display: inline-block;
+        }
+
+        .btn-message:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(138, 43, 226, 1);
+        }
+
+        .btn-message:active {
+            transform: scale(0.95);
+        }
+
+        /* Personal Message Section */
+        .message-section {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .message-section h2 {
+            font-size: 2rem;
+            color: #ff69b4;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            margin-bottom: 30px;
+        }
+
+        /* Interactive Sticker Display */
+        .sticker-display {
+            position: fixed;
+            z-index: 100;
+            pointer-events: none;
+            animation: stickerPop 0.8s ease-out forwards;
+        }
+
+        @keyframes stickerPop {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(var(--rotation));
+            }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: #000000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(255, 20, 147, 1);
+        }
+
+        .back-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 15px;
+            padding: 15px 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: #000000;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .music-label {
+            color: #ff69b4;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        /* Sticker Counter */
+        .sticker-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 25px;
+            padding: 15px 25px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            z-index: 1000;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);        }        }
+
+        /* Hide audio element */
+        #backgroundMusic {
+            display: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .stickers-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .sticker-emoji {
+                font-size: 80px;
+            }
+
+            .sticker-card {
+                padding: 30px 20px;
+            }
+
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                top: 20px;
+                left: 20px;
+            }
+
+            .sticker-counter {
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 60px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 2000;
+            animation: showSuccess 1s ease-out;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-message h2 {
+            color: #ff1493;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        @keyframes showSuccess {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Galaxy Background -->
+    <div class="galaxy-bg">
+        <div class="stars" id="starsContainer"></div>
+    </div>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="floatingHeartsContainer"></div>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">← Back to Love</button>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-btn" id="musicToggle" onclick="toggleMusic()">🎵</button>
+        <span class="music-label">Love Song</span>
+    </div>
+
+    <!-- Sticker Counter -->
+    <div class="sticker-counter">
+        Stickers Sent: <span id="stickerCount">0</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Express Your Love 💕</h1>
+            <p></p>
+        </div>
+
+        <!-- Stickers Grid -->
+        <div class="stickers-grid">
+            <!-- Hugging Sticker -->
+            <button class="sticker-card" onclick="sendSticker(event, '🫂')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') sendSticker(event, '🫂')">
+                <div class="sticker-emoji">🫂</div>
+                <div class="sticker-title">Hugging</div>
+                <div class="sticker-description">
+                    Send a warm, loving hug that transcends all distance and gravity.
+                </div>
+                <div class="sticker-btn">Send Hug ❤️</div>
+            </button>
+
+            <!-- Kissing Sticker -->
+            <button class="sticker-card" onclick="sendSticker(event, '💋')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') sendSticker(event, '💋')">
+                <div class="sticker-emoji kiss">💋</div>
+                <div class="sticker-title">Kissing</div>
+                <div class="sticker-description">
+                    A tender kiss that bridges the gap between hearts, a moment of pure love.
+                </div>
+                <div class="sticker-btn">Send Kiss 💗</div>
+            </button>
+        </div>
+
+        <!-- Personal Message Section -->
+        <div class="message-section">
+            <h2></h2>
+            <button class="btn btn-message" id="openLetterBtn" onclick="location.href='letter.html'">Unveil the words my soul has written for you😝🫣</button>
+        </div>
+    </div>
+
+    <script>
+        // Generate random stars
+        function generateStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            const starCount = window.innerWidth > 768 ? 150 : 80;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Generate floating hearts
+        function generateFloatingHearts() {
+            const container = document.getElementById('floatingHeartsContainer');
+            const hearts = ['❤️', '💗', '💖'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = `heart heart-${(i % 3) + 1}`;
+                heart.textContent = hearts[i % hearts.length];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Send Sticker
+        function sendSticker(event, sticker) {
+            const rect = event.target.closest('.sticker-card').getBoundingClientRect();
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+            // Create sticker display
+            for (let i = 0; i < 8; i++) {
+                const stickerDisplay = document.createElement('div');
+                stickerDisplay.className = 'sticker-display';
+                stickerDisplay.textContent = sticker;
+                stickerDisplay.style.left = startX + 'px';
+                stickerDisplay.style.top = startY + 'px';
+                stickerDisplay.style.fontSize = '50px';
+                
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 300;
+                const endX = startX + Math.cos(angle) * distance;
+                const endY = startY + Math.sin(angle) * distance;
+                
+                stickerDisplay.style.setProperty('--rotation', (angle * 180 / Math.PI) + 'deg');
+                stickerDisplay.style.animation = `stickerPop 0.8s ease-out forwards`;
+                
+                document.body.appendChild(stickerDisplay);
+
+                // Animate to end position
+                setTimeout(() => {
+                    stickerDisplay.style.transition = 'all 1s ease-out';
+                    stickerDisplay.style.left = endX + 'px';
+                    stickerDisplay.style.top = endY + 'px';
+                    stickerDisplay.style.opacity = '0';
+                }, 50);
+
+                setTimeout(() => stickerDisplay.remove(), 1800);
+            }
+
+            // Update counter
+            let count = Number.parseInt(document.getElementById('stickerCount').textContent);
+            count++;
+            document.getElementById('stickerCount').textContent = count;
+
+            // Play success animation
+            if (count % 5 === 0) {
+                showSuccessMessage();
+            }
+        }
+
+        // Show success message on milestone
+        function showSuccessMessage() {
+            const message = document.createElement('div');
+            message.className = 'success-message';
+            message.innerHTML = '<h2>💖 Amazing!</h2><p>You\'ve sent 5 stickers of love!</p>';
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.style.animation = 'fadeOut 0.5s ease-out forwards';
+                setTimeout(() => message.remove(), 500);
+            }, 2000);
+        }
+
+        // Add fade out animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.5);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Go back to home
+        function goBack() {
+            globalThis.location.href = 'index.html';
+        }
+
+        // Navigation handler moved to inline button (go to letter page)
+
+        // Music toggle with localStorage persistence
+        function toggleMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            const btn = document.getElementById('musicToggle');
+            if (!audio) return;
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Audio play failed'));
+                localStorage.setItem('musicPlaying', 'true');
+                btn.textContent = '🎵';
+            } else {
+                audio.pause();
+                localStorage.setItem('musicPlaying', 'false');
+                btn.textContent = '🔇';
+            }
+        }
+
+        // Initialize page with music state
+        window.addEventListener('load', function() {
+            generateStars();
+            generateFloatingHearts();
+            const audio = document.getElementById('backgroundMusic');
+            if (!audio) return;
+            const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+            if (isMusicPlaying) {
+                audio.play().catch(() => {});
+                document.getElementById('musicToggle').textContent = '🎵';
+            }
+        });
+    </script>
+
+    <!-- Hidden Audio for Background Music -->
+    <audio id="backgroundMusic" loop>
+        <source src="lovesong.mpeg" type="audio/mpeg">
+    </audio>
+</body>
+</html>
